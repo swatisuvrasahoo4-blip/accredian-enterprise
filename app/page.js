@@ -1,3 +1,4 @@
+import AccredianEdge from "@/components/AccredianEdge/AccredianEdge";
 import Clients from "@/components/Clients/Clients";
 import Hero from "@/components/Hero/Hero";
 import Navbar from "@/components/Navbar/Navbar";
@@ -11,6 +12,7 @@ export default function Home(){
         <Hero />
         <Stats />
         <Clients />
+        <AccredianEdge />
       </main>
     </main>
   )

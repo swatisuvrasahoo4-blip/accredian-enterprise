@@ -76,8 +76,8 @@ export default function Navbar() {
               {item.title}
               </a>
             </li>
-  );
-})}
+           );
+          })}
         </ul>
 
         {/* Mobile Menu Button */}
