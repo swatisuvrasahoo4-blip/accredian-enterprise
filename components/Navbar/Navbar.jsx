@@ -1,10 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { navLinks } from "../constants/navLinks";
 
 export default function Navbar() {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+   const handleScroll = () => {
+    const sections = navLinks
+      .map((link) => {
+        const id = link.href.replace("#", "");
+        return document.getElementById(id);
+      })
+      .filter(Boolean);
+
+    let current = "home";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+
+      if (window.scrollY >= sectionTop - 150) {
+        current = section.id;
+      }
+    });
+
+    setActiveSection(current);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   // Closes the mobile menu after a navigation link is selected.
   const closeMenu = () => {
@@ -28,16 +58,26 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <ul className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((item) => (
+          {navLinks.map((item) => {
+            const sectionId = item.href.replace("#", "");
+            const isActive = activeSection === sectionId;
+
+          return (
             <li key={item.id}>
               <a
                 href={item.href}
-                className="text-sm font-medium text-black transition-colors duration-300 hover:text-blue-600 ml-6"
-              >
-                {item.title}
+                 onClick={() => setActiveSection(sectionId)}
+                 className={`text-sm font-medium pb-2 transition-colors duration-200 ${
+                 isActive
+                 ? "text-blue-600 border-b-2 border-blue-600"
+                 : "text-black hover:text-blue-600"
+                 }`}
+             >     
+              {item.title}
               </a>
             </li>
-          ))}
+  );
+})}
         </ul>
 
         {/* Mobile Menu Button */}
