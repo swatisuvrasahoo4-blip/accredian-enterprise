@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Stats from "@/components/Stats/Stats";
 import EnquiryModal from "@/components/Enquiry/EnquiryModal";
 import Testimonials from "@/components/Testimonials/Testimonials";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home(){
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
@@ -33,6 +34,9 @@ export default function Home(){
           onEnquire={()=> setIsEnquiryOpen(true)}
         />
       </main>
+      <Footer
+        onEnquire={()=> setIsEnquiryOpen(true)}
+      />
       <EnquiryModal
         isOpen ={isEnquiryOpen}
         onClose={()=> setIsEnquiryOpen(false)}

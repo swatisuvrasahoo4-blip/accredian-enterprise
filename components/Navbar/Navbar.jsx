@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { navLinks } from "../constants/navLinks";
+import Logo from "../Logo/Logo";
 
 export default function Navbar() {
 
@@ -46,15 +47,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         
         {/* Logo */}
-        <a href="#home" className="flex flex-col">
-          <span className="text-2xl font-bold text-blue-600">
-            accredian
-          </span>
-
-          <span className="text-[10px] tracking-wider text-gray-500">
-            credentials that matter
-          </span>
-        </a>
+        <Logo />
 
         {/* Desktop Navigation */}
         <ul className="hidden items-center gap-8 lg:flex">
