@@ -1,5 +1,12 @@
+import connectDB from "@/lib/mongodb";
+import Enquiry from "@/models/Enquiry";
+const dns = require('node:dns/promises');
+dns.setServers(['1.1.1.1', '8.8.8.8']);
+
 export async function POST(request) {
   try {
+    await connectDB();
+
     const body = await request.json();
 
     const {
@@ -14,7 +21,7 @@ export async function POST(request) {
       countryCode,
     } = body;
 
-    if (!name || !email || !phone || !mode) {
+    if (!name || !email || !phone || !mode || !countryCode) {
       return Response.json(
         {
           success: false,
@@ -24,7 +31,7 @@ export async function POST(request) {
       );
     }
 
-    console.log("New enquiry received:", {
+    const newEnquiry = await Enquiry.create({
       name,
       email,
       phone,
@@ -40,6 +47,7 @@ export async function POST(request) {
       {
         success: true,
         message: "Enquiry submitted successfully.",
+        enquiryId: newEnquiry._id,
       },
       { status: 201 }
     );
@@ -49,7 +57,7 @@ export async function POST(request) {
     return Response.json(
       {
         success: false,
-        message: "Something went wrong.",
+        message: "Something went wrong while saving the enquiry.",
       },
       { status: 500 }
     );
