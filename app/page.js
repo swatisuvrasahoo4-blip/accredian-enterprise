@@ -1,4 +1,5 @@
 import AccredianEdge from "@/components/AccredianEdge/AccredianEdge";
+import CAT from "@/components/CAT/CAT";
 import Clients from "@/components/Clients/Clients";
 import Hero from "@/components/Hero/Hero";
 import Navbar from "@/components/Navbar/Navbar";
@@ -13,6 +14,7 @@ export default function Home(){
         <Stats />
         <Clients />
         <AccredianEdge />
+        <CAT />
       </main>
     </main>
   )
