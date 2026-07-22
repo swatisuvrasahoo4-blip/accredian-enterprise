@@ -136,7 +136,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-3 sm:p-5"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-3 sm:p-5"
       onMouseDown={onClose}
     >
       {/* MODAL */}
@@ -146,7 +146,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
           grid
           h-[92vh]
           w-full
-          max-w-[1150px]
+          max-w: 1150px
           overflow-hidden
           rounded-md
           bg-white
@@ -266,7 +266,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                     </button>
 
                     {countryOpen && (
-                      <div className="absolute left-0 top-full z-50 mt-2 max-h-64 min-w-[220px] overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
+                      <div className="absolute left-0 top-full z-50 mt-2 max-h-64 min-w: 220px overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
                         {countries.map((country) => (
                           <button
                             key={country.code}
@@ -377,7 +377,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                       right-0
                       top-full
                       z-40
-                      max-h-[300px]
+                      max-h: 300px
                       overflow-y-auto
                       border
                       border-gray-200

@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Accredian EnterPrise",
-  description: "Accredian Enterprise Landing Page",
+  title: "Accredian Enterprise",
+  description: "Enterprise learning and workforce devlopment solutions by Accredian",
 };
 
 export default function RootLayout({ children }) {
