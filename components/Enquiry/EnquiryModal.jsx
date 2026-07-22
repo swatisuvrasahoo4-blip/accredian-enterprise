@@ -86,10 +86,52 @@ export default function EnquiryModal({ isOpen, onClose }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Enquiry Form:", formData);
+    try {
+      console.log("Selected", selectedCountry);
+
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          ...formData,
+          countryCode: selectedCountry.dial_code,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to submit enquiry");
+      }
+      // Clear all form fields after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        domain: "",
+        candidates: "",
+        mode: "",
+        location: "",
+      });
+
+      // Reset country code back to India
+      setSelectedCountry({
+        code: "IN",
+        dial_code: "+91",
+      });
+
+      alert(data.message);
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert(error.message);
+    }
   };
 
   return (
