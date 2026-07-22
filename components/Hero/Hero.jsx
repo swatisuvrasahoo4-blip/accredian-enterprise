@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Hero() {
+export default function Hero({ onEnquire }) {
   return (
     <section id="home" className="bg-white px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl items-center gap-10 rounded-3xl bg-blue-50 px-6 py-10 lg:grid-cols-2 lg:px-12 lg:py-14">
@@ -53,12 +53,13 @@ export default function Hero() {
             </div>
           </div>
 
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={onEnquire}
             className="mt-9 inline-block rounded-lg bg-blue-600 px-7 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700 hover:shadow-lg"
           >
             Enquire Now
-          </a>
+          </button>
         </div>
 
         {/* Hero image */}

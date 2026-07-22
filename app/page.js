@@ -1,23 +1,38 @@
+"use client"
+import { useState } from "react";
 import AccredianEdge from "@/components/AccredianEdge/AccredianEdge";
 import CAT from "@/components/CAT/CAT";
 import Clients from "@/components/Clients/Clients";
+import FAQs from "@/components/FAQ/FAQ";
 import Hero from "@/components/Hero/Hero";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Navbar from "@/components/Navbar/Navbar";
 import Stats from "@/components/Stats/Stats";
+import EnquiryModal from "@/components/Enquiry/EnquiryModal";
 
 export default function Home(){
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+
   return(
-    <main>
+    <>
       <Navbar/>
       <main>
-        <Hero />
+        <Hero 
+          onEnquire={()=> setIsEnquiryOpen(true)}
+        />
         <Stats />
         <Clients />
         <AccredianEdge />
         <CAT />
         <HowItWorks />
+        <FAQs 
+          onEnquire={()=> setIsEnquiryOpen(true)}
+        />
       </main>
-    </main>
+      <EnquiryModal
+        isOpen ={isEnquiryOpen}
+        onClose={()=> setIsEnquiryOpen(false)}
+      />
+    </>
   )
 }
