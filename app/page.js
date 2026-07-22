@@ -9,6 +9,7 @@ import HowItWorks from "@/components/HowItWorks/HowItWorks";
 import Navbar from "@/components/Navbar/Navbar";
 import Stats from "@/components/Stats/Stats";
 import EnquiryModal from "@/components/Enquiry/EnquiryModal";
+import Testimonials from "@/components/Testimonials/Testimonials";
 
 export default function Home(){
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
@@ -26,6 +27,9 @@ export default function Home(){
         <CAT />
         <HowItWorks />
         <FAQs 
+          onEnquire={()=> setIsEnquiryOpen(true)}
+        />
+        <Testimonials
           onEnquire={()=> setIsEnquiryOpen(true)}
         />
       </main>
