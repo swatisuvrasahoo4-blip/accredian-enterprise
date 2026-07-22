@@ -20,6 +20,34 @@ const domains = [
 const deliveryModes = ["Online", "Offline"];
 
 export default function EnquiryModal({ isOpen, onClose }) {
+  const [countries, setCountries] = useState([]);
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState({
+    code: "IN",
+    dial_Code: "+91",
+  });
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await fetch(
+          "https://countriesnow.space/api/v0.1/countries/codes",
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch countries");
+        }
+
+        const result = await response.json();
+        setCountries(result.data);
+      } catch (error) {
+        console.error("Failed to load countries:", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
   const [domainOpen, setDomainOpen] = useState(false);
   const [modeOpen, setModeOpen] = useState(false);
 
@@ -183,12 +211,40 @@ export default function EnquiryModal({ isOpen, onClose }) {
               {/* PHONE */}
 
               <div className="flex items-center border-b border-gray-300 px-2">
-                <div className="mr-4 flex shrink-0 items-center gap-2">
-                  <span className="text-2xl">🇮🇳</span>
+                <div className="mr-4 flex shrink-0 items-center gap-1">
+                  <div className="relative mr-4 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setCountryOpen(!countryOpen)}
+                      className="flex items-center gap-1 bg-transparent text-lg text-gray-700 outline-none"
+                    >
+                      <span>{selectedCountry.code}</span>
+                      <span>{selectedCountry.dial_code}</span>
+                      <span className="text-xs">▼</span>
+                    </button>
 
-                  <span className="text-lg text-gray-700">
-                    +91
-                  </span>
+                    {countryOpen && (
+                      <div className="absolute left-0 top-full z-50 mt-2 max-h-64 min-w-[220px] overflow-y-auto rounded-md border border-gray-200 bg-white shadow-lg">
+                        {countries.map((country) => (
+                          <button
+                            key={country.code}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCountry({
+                                code: country.code,
+                                dial_code: country.dial_code,
+                              });
+
+                              setCountryOpen(false);
+                            }}
+                            className="block w-full px-4 py-3 text-left text-sm hover:bg-blue-50"
+                          >
+                            {country.name} ({country.code}) {country.dial_code}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <input
@@ -256,9 +312,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 >
                   <span
                     className={
-                      formData.domain
-                        ? "text-gray-800"
-                        : "text-gray-400"
+                      formData.domain ? "text-gray-800" : "text-gray-400"
                     }
                   >
                     {formData.domain || "Select Domain"}
@@ -367,9 +421,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 >
                   <span
                     className={
-                      formData.mode
-                        ? "text-gray-800"
-                        : "text-gray-400"
+                      formData.mode ? "text-gray-800" : "text-gray-400"
                     }
                   >
                     {formData.mode || "Select Mode of Delivery *"}
